@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/home/wercton/Documentos/Trabalho/flutter_development/myapp/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-night-v8/values-night-v8.xml",
+            "outputFile": "/home/wercton/Documentos/Trabalho/flutter_development/tutorials/NameGeneratorApp_flutterdocs/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-night-v8/values-night-v8.xml",
             "map": [
                 {
-                    "source": "/home/wercton/Documentos/Trabalho/flutter_development/myapp/android/app/src/main/res/values-night/styles.xml",
+                    "source": "/home/wercton/Documentos/Trabalho/flutter_development/tutorials/NameGeneratorApp_flutterdocs/android/app/src/main/res/values-night/styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",

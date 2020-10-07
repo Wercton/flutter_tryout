@@ -9,20 +9,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final wordPair = WordPair.random();
     return MaterialApp(
-      title: 'Welcome to Flutter',
-      theme: ThemeData(
-        primarySwatch: Colors.red,
-      ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Willkommen in der Hölle"),
-        ),
-        body: Center(
-          child: Text(wordPair.asPascalCase),
-        ),
-      ),
+      title: 'Namensgenerator',
+      home: ZufalligeWorter(),
     );
   }
 }
@@ -108,6 +97,50 @@ class _MyHomePageState extends State<MyHomePage> {
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}
+
+class ZufalligeWorter extends StatefulWidget {
+  @override
+  _ZufalligeWorterState createState() => _ZufalligeWorterState();
+}
+
+class _ZufalligeWorterState extends State<ZufalligeWorter> {
+  final _vorschlag = <WordPair>[]; /*suggestion*/
+  final _grosserFont = TextStyle(fontSize:18.0);
+
+  Widget _buildVorschlag() {
+    return ListView.builder(
+      padding: EdgeInsets.all(16.0),
+      itemBuilder: (context, i) {
+        if (i.isOdd) return Divider();
+
+        final index = i ~/ 2;
+        if (index >= _vorschlag.length) {
+          _vorschlag.addAll(generateWordPairs().take(10));
+        }
+        return _buildReihe(_vorschlag[index]);
+      }
+    );
+  }
+
+  Widget _buildReihe(WordPair pair) {
+    return ListTile(
+      title: Text(
+        pair.asPascalCase,
+        style: _grosserFont,
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Namensgenerator')
+      ),
+      body: _buildVorschlag(),
     );
   }
 }
