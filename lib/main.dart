@@ -9,6 +9,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final wordPair = WordPair.random();
     return MaterialApp(
       title: 'Welcome to Flutter',
       theme: ThemeData(
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
           title: Text("Willkommen in der Hölle"),
         ),
         body: Center(
-          child: Text('Hallo, hier ist Satan! :)'),
+          child: Text(wordPair.asPascalCase),
         ),
       ),
     );
@@ -109,4 +110,12 @@ class _MyHomePageState extends State<MyHomePage> {
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+}
+
+class ZufalligeWorter extends StatefulWidget {
+
+}
+
+class _ZufalligeWorteState extends State<ZufalligeWorter> {
+
 }
