@@ -108,6 +108,7 @@ class ZufalligeWorter extends StatefulWidget {
 
 class _ZufalligeWorterState extends State<ZufalligeWorter> {
   final _vorschlag = <WordPair>[]; /*suggestion*/
+  final _gespeichert = Set<WordPair>();
   final _grosserFont = TextStyle(fontSize:18.0);
 
   Widget _buildVorschlag() {
@@ -125,12 +126,27 @@ class _ZufalligeWorterState extends State<ZufalligeWorter> {
     );
   }
 
-  Widget _buildReihe(WordPair pair) {
+  Widget _buildReihe(WordPair paar) {
+    final schonGespeichert = _gespeichert.contains(paar);
     return ListTile(
       title: Text(
-        pair.asPascalCase,
+        paar.asPascalCase,
         style: _grosserFont,
       ),
+      trailing: Icon(
+        schonGespeichert ? Icons.favorite : Icons.favorite_border,
+        color: schonGespeichert ? Colors.pink : null,
+      ),
+      onTap: () {
+        setState(() {
+          if (schonGespeichert) {
+            _gespeichert.remove(paar);
+          } else {
+            _gespeichert.add(paar);
+          }
+        }
+      );
+      }
     );
   }
 
@@ -144,3 +160,10 @@ class _ZufalligeWorterState extends State<ZufalligeWorter> {
     );
   }
 }
+
+/*
+gespeichert = saved
+die Reihe = row
+der Vorschlag = suggestion
+das Paar = pair
+ */
