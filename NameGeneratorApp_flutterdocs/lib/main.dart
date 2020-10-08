@@ -11,6 +11,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Namensgenerator',
+      theme: ThemeData(
+        primaryColor: Colors.deepOrange,
+      ),
       home: ZufalligeWorter(),
     );
   }
@@ -128,25 +131,58 @@ class _ZufalligeWorterState extends State<ZufalligeWorter> {
 
   Widget _buildReihe(WordPair paar) {
     final schonGespeichert = _gespeichert.contains(paar);
-    return ListTile(
-      title: Text(
-        paar.asPascalCase,
-        style: _grosserFont,
+    return Container(
+        color: Colors.grey[200],
+        child: ListTile(
+          title: Text(
+            paar.asPascalCase,
+            style: _grosserFont,
+          ),
+          trailing: Icon(
+            schonGespeichert ? Icons.favorite : Icons.favorite_border,
+            color: schonGespeichert ? Colors.deepOrange : null,
+          ),
+          onTap: () {
+            setState(() {
+              if (schonGespeichert) {
+                _gespeichert.remove(paar);
+              } else {
+                _gespeichert.add(paar);
+              }
+            }
+          );
+        },
       ),
-      trailing: Icon(
-        schonGespeichert ? Icons.favorite : Icons.favorite_border,
-        color: schonGespeichert ? Colors.pink : null,
+    );
+  }
+
+  void _pushGespeichert() {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (BuildContext context) {
+          final tiles = _gespeichert.map(
+            (WordPair paar) {
+              return ListTile(
+                title: Text(
+                  paar.asPascalCase,
+                  style: _grosserFont,
+                ),
+              );
+            },
+          );
+          final geteilt = ListTile.divideTiles(
+            context: context,
+            tiles: tiles,
+          ).toList();
+
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('Gespeichert Vorschlag'),
+            ),
+            body: ListView(children: geteilt),
+          );
+        },
       ),
-      onTap: () {
-        setState(() {
-          if (schonGespeichert) {
-            _gespeichert.remove(paar);
-          } else {
-            _gespeichert.add(paar);
-          }
-        }
-      );
-      }
     );
   }
 
@@ -154,7 +190,10 @@ class _ZufalligeWorterState extends State<ZufalligeWorter> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Namensgenerator')
+        title: Text('Namensgenerator'),
+        actions: [
+          IconButton(icon: Icon(Icons.list), onPressed: _pushGespeichert),
+        ],
       ),
       body: _buildVorschlag(),
     );
@@ -162,8 +201,10 @@ class _ZufalligeWorterState extends State<ZufalligeWorter> {
 }
 
 /*
+zufallige = random
 gespeichert = saved
 die Reihe = row
 der Vorschlag = suggestion
 das Paar = pair
+geteilt = divided
  */
