@@ -1,4 +1,0 @@
-#Thu Oct 08 18:15:10 BRT 2020
-base.0=/home/wercton/Documentos/Trabalho/flutter_development/tutorials/NameGeneratorApp_flutterdocs/build/app/intermediates/dex/debug/mergeDexDebug/out/classes.dex
-path.0=classes.dex
-renamed.0=classes.dex
