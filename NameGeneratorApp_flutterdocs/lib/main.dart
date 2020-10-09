@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
+/*import 'package:german_words/german_words.dart';*/
 
 void main() {
   runApp(MyApp());
@@ -113,12 +114,13 @@ class _ZufalligeWorterState extends State<ZufalligeWorter> {
   final _vorschlag = <WordPair>[]; /*suggestion*/
   final _gespeichert = Set<WordPair>();
   final _grosserFont = TextStyle(fontSize:18.0);
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   Widget _buildVorschlag() {
     return ListView.builder(
-      padding: EdgeInsets.all(16.0),
+      padding: EdgeInsets.all(15.0),
       itemBuilder: (context, i) {
-        if (i.isOdd) return Divider();
+        if (i.isOdd) return Divider(color: Colors.white);
 
         final index = i ~/ 2;
         if (index >= _vorschlag.length) {
@@ -167,6 +169,10 @@ class _ZufalligeWorterState extends State<ZufalligeWorter> {
                   paar.asPascalCase,
                   style: _grosserFont,
                 ),
+                trailing: Icon(
+                  Icons.favorite,
+                  color: Colors.deepOrange,
+                ),
               );
             },
           );
@@ -186,13 +192,47 @@ class _ZufalligeWorterState extends State<ZufalligeWorter> {
     );
   }
 
+  void _pushSomething() {
+  }
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
+      key: _scaffoldKey,
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              child: Center(child: Text('Namensgenerator', style: TextStyle(color: Colors.white))),
+              decoration: BoxDecoration(
+                color: Colors.deepOrange,
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.menu),
+              title: Text('Neuer Vorschlag'),
+              onTap: (){
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.favorite),
+              title: Text('Gespeichert Vorschlag'),
+              onTap: _pushGespeichert,
+            ),
+          ],
+        ),
+      ),
       appBar: AppBar(
-        title: Text('Namensgenerator'),
+        leading: new IconButton(
+          icon: new Icon(Icons.menu),
+          onPressed: () => _scaffoldKey.currentState.openDrawer(),
+        ),
+        title: Center(child: Text('Namensgenerator')),
         actions: [
-          IconButton(icon: Icon(Icons.list), onPressed: _pushGespeichert),
+          IconButton(icon: Icon(Icons.favorite), onPressed: _pushGespeichert),
         ],
       ),
       body: _buildVorschlag(),

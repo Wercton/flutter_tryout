@@ -74,6 +74,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  german_words:
+    dependency: "direct main"
+    description:
+      name: german_words
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.24"
   matcher:
     dependency: transitive
     description:
