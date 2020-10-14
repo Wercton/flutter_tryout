@@ -24,6 +24,7 @@ class _HomeState extends State<Home> {
     hoheController.text = "";
     setState(() {
       _infoText = "Gib Ihre Daten ein";
+      _formKey = GlobalKey<FormState>();
     });
   }
 
@@ -68,14 +69,17 @@ class _HomeState extends State<Home> {
         ),
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
-          padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+          padding: EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 0.0),
           child: Form(
             key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Icon(Icons.person_pin_rounded,
-                    size: 128, color: Colors.deepPurple),
+                Padding(
+                  padding: EdgeInsets.only(bottom: 30.0),
+                  child: Icon(Icons.person_pin_rounded,
+                      size: 128, color: Colors.deepPurple),
+                ),
                 TextFormField(
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
