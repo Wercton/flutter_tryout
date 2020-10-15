@@ -30,15 +30,23 @@ class _HomeState extends State<Home> {
   final realController = TextEditingController();
   final dolarController = TextEditingController();
   final euroController = TextEditingController();
-  final ieneController = TextEditingController();
+  final bitcoinController = TextEditingController();
+  final libraController = TextEditingController();
+  final pesoArgentinoController = TextEditingController();
 
   double dolar;
   double euro;
+  double bitcoin;
+  double libra;
+  double pesoArgentino;
 
   void _clearAll() {
     realController.text = "";
     dolarController.text = "";
     euroController.text = "";
+    bitcoinController.text = "";
+    libraController.text = "";
+    pesoArgentinoController.text = "";
   }
 
   void _realChanged(String text) {
@@ -49,6 +57,9 @@ class _HomeState extends State<Home> {
     double real = double.parse(text);
     dolarController.text = (real / dolar).toStringAsFixed(2);
     euroController.text = (real / euro).toStringAsFixed(2);
+    bitcoinController.text = (real / bitcoin).toStringAsFixed(2);
+    libraController.text = (real / libra).toStringAsFixed(2);
+    pesoArgentinoController.text = (real / pesoArgentino).toStringAsFixed(2);
   }
 
   void _dolarChanged(String text) {
@@ -57,9 +68,12 @@ class _HomeState extends State<Home> {
       return;
     }
     double dolar = double.parse(text);
-    realController.text = (this.dolar * dolar).toStringAsFixed(2);
-    euroController.text =
-        (double.parse(realController.text) / euro).toStringAsFixed(2);
+    double real = this.dolar * dolar;
+    realController.text = (real).toStringAsFixed(2);
+    euroController.text = (real / euro).toStringAsFixed(2);
+    bitcoinController.text = (real / bitcoin).toStringAsFixed(2);
+    libraController.text = (real / libra).toStringAsFixed(2);
+    pesoArgentinoController.text = (real / pesoArgentino).toStringAsFixed(2);
   }
 
   void _euroChanged(String text) {
@@ -68,13 +82,53 @@ class _HomeState extends State<Home> {
       return;
     }
     double euro = double.parse(text);
-    realController.text = (this.euro * euro).toStringAsFixed(2);
-    dolarController.text =
-        (double.parse(realController.text) / dolar).toStringAsFixed(2);
+    double real = this.euro * euro;
+    realController.text = (real).toStringAsFixed(2);
+    dolarController.text = (real / dolar).toStringAsFixed(2);
+    bitcoinController.text = (real / bitcoin).toStringAsFixed(2);
+    libraController.text = (real / libra).toStringAsFixed(2);
+    pesoArgentinoController.text = (real / pesoArgentino).toStringAsFixed(2);
   }
 
-  void _ieneChanged(String text) {
-    print(text);
+  void _bitcoinChanged(String text) {
+    if (text.isEmpty) {
+      _clearAll();
+      return;
+    }
+    double bitcoin = double.parse(text);
+    double real = this.bitcoin * bitcoin;
+    realController.text = (real).toStringAsFixed(2);
+    dolarController.text = (real / dolar).toStringAsFixed(2);
+    euroController.text = (real / euro).toStringAsFixed(2);
+    libraController.text = (real / libra).toStringAsFixed(2);
+    pesoArgentinoController.text = (real / pesoArgentino).toStringAsFixed(2);
+  }
+
+  void _libraChanged(String text) {
+    if (text.isEmpty) {
+      _clearAll();
+      return;
+    }
+    double libra = double.parse(text);
+    double real = this.libra * libra;
+    realController.text = (real).toStringAsFixed(2);
+    dolarController.text = (real / dolar).toStringAsFixed(2);
+    euroController.text = (real / euro).toStringAsFixed(2);
+    bitcoinController.text = (real / bitcoin).toStringAsFixed(2);
+    pesoArgentinoController.text = (real / pesoArgentino).toStringAsFixed(2);
+  }
+
+  void _pesoArgentinoChanged(String text) {
+    if (text.isEmpty) {
+      _clearAll();
+      return;
+    }
+    double pesoArgentino = double.parse(text);
+    double real = this.pesoArgentino * pesoArgentino;
+    realController.text = (real).toStringAsFixed(2);
+    dolarController.text = (real / dolar).toStringAsFixed(2);
+    euroController.text = (real / euro).toStringAsFixed(2);
+    bitcoinController.text = (real / bitcoin).toStringAsFixed(2);
   }
 
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -92,7 +146,9 @@ class _HomeState extends State<Home> {
           IconButton(
             color: Colors.white,
             icon: Icon(Icons.refresh),
-            onPressed: () {},
+            onPressed: () {
+              _clearAll();
+            },
           )
         ],
       ),
@@ -114,8 +170,12 @@ class _HomeState extends State<Home> {
               } else {
                 dolar = snapshot.data["results"]["currencies"]["USD"]["buy"];
                 euro = snapshot.data["results"]["currencies"]["EUR"]["buy"];
+                bitcoin = snapshot.data["results"]["currencies"]["BTC"]["buy"];
+                libra = snapshot.data["results"]["currencies"]["GBP"]["buy"];
+                pesoArgentino =
+                    snapshot.data["results"]["currencies"]["ARS"]["buy"];
                 return SingleChildScrollView(
-                  padding: EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 0.0),
+                  padding: EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 20.0),
                   child: Form(
                     key: _formKey,
                     child: Column(
@@ -138,8 +198,14 @@ class _HomeState extends State<Home> {
                           buildTextField(
                               "Euros", "€ ", euroController, _euroChanged),
                           Divider(),
-                          buildTextField(
-                              "Ienes", "¥ ", ieneController, _ieneChanged)
+                          buildTextField("Bitcoin", "\₿ ", bitcoinController,
+                              _bitcoinChanged),
+                          Divider(),
+                          buildTextField("Libra esterlina", "£ ",
+                              libraController, _libraChanged),
+                          Divider(),
+                          buildTextField("Peso argentino", "\$ ",
+                              pesoArgentinoController, _pesoArgentinoChanged)
                         ]),
                   ),
                 );
