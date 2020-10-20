@@ -19,7 +19,19 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("Aufgabenliste"),
+          centerTitle: true,
+        ),
+        body: Column(
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.fromLTRB(17.0, 1.0, 17.0, 1.0),
+              child: Row(),
+            ),
+          ],
+        ));
   }
 
   Future<File> _getFile() async {
@@ -35,5 +47,12 @@ class _HomeState extends State<Home> {
     return file.writeAsString(data);
   }
 
-  Future<String> _readData() async {}
+  Future<String> _readData() async {
+    try {
+      final file = await _getFile();
+      return file.readAsString();
+    } catch (e) {
+      return null;
+    }
+  }
 }
