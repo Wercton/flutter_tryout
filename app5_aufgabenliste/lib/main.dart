@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:Aufgabenliste/texts.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -101,7 +102,12 @@ class _HomeState extends State<Home> {
                       Icons.fact_check_outlined,
                       color: Colors.deepOrange,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Textos()),
+                      );
+                    },
                   ),
                 ],
               ),
@@ -119,7 +125,9 @@ class _HomeState extends State<Home> {
                       cursorColor: Colors.deepOrange,
                       decoration: InputDecoration(
                         hintText: "Enter new task",
-                        hintStyle: TextStyle(color: Colors.white),
+                        hintStyle: TextStyle(
+                          color: Colors.white,
+                        ),
                         focusedBorder: UnderlineInputBorder(
                           borderSide: const BorderSide(
                             color: Colors.deepOrange,
@@ -154,13 +162,6 @@ class _HomeState extends State<Home> {
             )
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.deepOrange,
-        child: Icon(
-          Icons.add,
-        ),
-        onPressed: () {},
       ),
     );
   }
