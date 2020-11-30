@@ -7,6 +7,9 @@ void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     home: Home(),
+    theme: ThemeData(
+      bottomAppBarColor: Colors.black,
+    ),
   ));
 }
 
@@ -40,31 +43,37 @@ class _HomeState extends State<Home> {
   }
 
   void _addToDo() {
-    setState(() {
-      Map<String, dynamic> newToDo = Map();
-      if (_toDoController.text != "") {
-        newToDo["title"] = _toDoController.text;
-        _toDoController.text = "";
-        newToDo["ok"] = false;
-        _toDoList.add(newToDo);
-        _saveData();
-      }
-    });
+    setState(
+      () {
+        Map<String, dynamic> newToDo = Map();
+        if (_toDoController.text != "") {
+          newToDo["title"] = _toDoController.text;
+          _toDoController.text = "";
+          newToDo["ok"] = false;
+          _toDoList.insert(0, newToDo);
+          _saveData();
+        }
+      },
+    );
   }
 
   Future<Null> _refreshing() async {
     await Future.delayed(Duration(seconds: 1));
 
-    setState(() {
-      _toDoList.sort((a, b) {
-        if (a["ok"] && !b["ok"])
-          return 1;
-        else if (!a["ok"] && b["ok"])
-          return -1;
-        else
-          return 0;
-      });
-    });
+    setState(
+      () {
+        _toDoList.sort(
+          (a, b) {
+            if (a["ok"] && !b["ok"])
+              return 1;
+            else if (!a["ok"] && b["ok"])
+              return -1;
+            else
+              return 0;
+          },
+        );
+      },
+    );
     _saveData();
     return null;
   }
@@ -222,6 +231,7 @@ class _HomeState extends State<Home> {
                 ),
               ),
               action: SnackBarAction(
+                textColor: Colors.black,
                 label: "undo",
                 onPressed: () {
                   setState(() {
