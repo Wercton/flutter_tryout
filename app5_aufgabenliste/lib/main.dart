@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:Aufgabenliste/newText.dart';
 import 'package:Aufgabenliste/texts.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
@@ -27,6 +28,11 @@ class _HomeState extends State<Home> {
 
   Map<String, dynamic> _lastRemoved;
   int _lastRemovedPos;
+
+  List<Color> _colors = [
+    Colors.white,
+    Colors.grey,
+  ];
 
   @override
   void initState() {
@@ -191,7 +197,10 @@ class _HomeState extends State<Home> {
             title: Text(
               _toDoList[index]["title"],
               style: TextStyle(
-                color: Colors.white,
+                color: _toDoList[index]["ok"] ? Colors.grey : Colors.white,
+                fontStyle: _toDoList[index]["ok"]
+                    ? FontStyle.italic
+                    : FontStyle.normal,
               ),
             ),
             value: _toDoList[index]["ok"],
