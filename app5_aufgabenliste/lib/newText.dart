@@ -60,7 +60,7 @@ class _newTextState extends State<newText> {
                   fillColor: Colors.deepOrange,
                   renderBorder: true,
                   borderRadius: BorderRadius.circular(5),
-                  borderColor: Colors.deepOrange,
+                  borderColor: Colors.grey[900],
                   selectedBorderColor: Colors.deepOrange,
                   splashColor: Colors.deepOrangeAccent,
                   highlightColor: Colors.deepOrangeAccent,
@@ -102,7 +102,7 @@ class _newTextState extends State<newText> {
                   fillColor: Colors.deepOrange,
                   renderBorder: true,
                   borderRadius: BorderRadius.circular(5),
-                  borderColor: Colors.deepOrange,
+                  borderColor: Colors.grey[900],
                   selectedBorderColor: Colors.deepOrange,
                   splashColor: Colors.deepOrangeAccent,
                   highlightColor: Colors.deepOrangeAccent,
@@ -125,8 +125,8 @@ class _newTextState extends State<newText> {
                 decoration: InputDecoration(
                   hintText: "Title",
                   hintStyle: TextStyle(
-                    color: Colors.white,
-                    fontSize: 30,
+                    color: Colors.grey,
+                    fontSize: 20,
                   ),
                   focusedBorder: UnderlineInputBorder(
                     borderSide: const BorderSide(
@@ -143,9 +143,7 @@ class _newTextState extends State<newText> {
                 height: 600,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
-                  border: Border.all(
-                    color: Colors.deepOrange,
-                  ),
+                  color: Colors.grey[900],
                 ),
                 child: TextField(
                   keyboardType: TextInputType.multiline,
@@ -157,11 +155,6 @@ class _newTextState extends State<newText> {
                   cursorColor: Colors.deepOrange,
                   cursorHeight: 30,
                   decoration: InputDecoration(
-                    hintText: "text goes here",
-                    hintStyle: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 30,
-                    ),
                     focusedBorder: UnderlineInputBorder(
                       borderSide: const BorderSide(
                         color: Colors.transparent,

@@ -30,7 +30,7 @@ class _TextosState extends State<Textos> {
                   IconButton(
                     icon: Icon(
                       Icons.fact_check_outlined,
-                      color: Colors.deepOrange,
+                      color: Colors.deepOrange[300],
                     ),
                     onPressed: () {},
                   ),
